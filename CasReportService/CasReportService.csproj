@@ -84,12 +84,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BuisnessLayer\BuisnessLayer.csproj">
-      <Project>{a00734eb-14c6-4fed-a42a-7816ce75c74d}</Project>
-      <Name>BuisnessLayer</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
