@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using CASReports.Datasets;
 using System.Windows.Forms;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -302,7 +303,7 @@ namespace CASReports.Builders
         {
             if (ReportedAircraft == null)
                 return;
-            var manufactureDate = ReportedAircraft[0].ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = ReportedAircraft[0].ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
       //      string SinceNewHours = lifelengthFormatter.GetHoursData(new TimeSpan((int)GlobalObjects.CasEnvironment.Calculator.GetLifelength(reportedAircraft).Hours,0,0)).Trim();
       //      string sinceNewCycles = GlobalObjects.CasEnvironment.Calculator.GetLifelength(reportedAircraft).Cycles.ToString().Trim();
             var registrationNumber = ReportedAircraft[0].RegistrationNumber;
@@ -467,9 +468,9 @@ namespace CASReports.Builders
             reportHeader = "ForeCast List ";
             if (_isFiltered)
                 reportHeader += ". Filtered";
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.
                 AdditionalDataTAble.
                     AddAdditionalDataTAbleRow(GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == _reportedAircrafts[0].OperatorId).LogoTypeWhite,

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -279,7 +280,7 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var serialNumber = _reportedAircraft.SerialNumber;
             var model = _reportedAircraft.Model.ToString();
 	        var registrationNumber = _reportedAircraft.RegistrationNumber;
@@ -336,8 +337,8 @@ namespace CASReports.Builders
 			var location = !string.IsNullOrEmpty(regNumber)
                                   ? regNumber
 								  : parentStore != null ? parentStore.Name : "";
-			var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-			var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+			var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+			var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 			var status = _reportedBaseComponent.Serviceable ? "Serviceable" : "Unserviceable";
 			var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
 			var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -360,7 +361,7 @@ namespace CASReports.Builders
 	        var lastTransferRecord = _reportedBaseComponent.TransferRecords.GetLast();
 			var installationDate = lastTransferRecord.TransferDate;
 			var onInstall = lastTransferRecord.OnLifelength;
-			var onInstallDate = installationDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+			var onInstallDate = installationDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 			var onInstallHours = onInstall.Hours != null ? onInstall.Hours.ToString() : "";
 			var onInstallCycles = onInstall.Cycles != null ? onInstall.Cycles.ToString() : "";
 			var onInstallDays = onInstall.Days != null ? onInstall.Days.ToString() : "";
@@ -415,7 +416,7 @@ namespace CASReports.Builders
             {
                 sinceOverhaul.Add(reportAircraftLifeLenght);
                 sinceOverhaul.Substract(lastOverhaul.LastPerformance.OnLifelength);
-                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             }
 
             #endregion
@@ -582,7 +583,7 @@ namespace CASReports.Builders
                 {
                     sinceNewComplianceDate =
                         _manufactureDate.AddDays(sinceNewThreshold.Days.Value).ToString(
-                            new GlobalTermsProvider()["DateFormat"].ToString());
+                            GlobalTermsProvider.Terms["DateFormat"].ToString());
                 }
                 if (reportedDirective.LastPerformance == null)
                 {
@@ -617,14 +618,14 @@ namespace CASReports.Builders
             {
                 firstComplianceDate =
                     reportedDirective.PerformanceRecords[0].RecordDate.ToString(
-                        new GlobalTermsProvider()["DateFormat"].ToString());
+                        GlobalTermsProvider.Terms["DateFormat"].ToString());
                 firstCompliance = reportedDirective.PerformanceRecords[0].OnLifelength;
 
                 if (reportedDirective.Threshold.RepeatInterval != null) 
                     repeatInterval = reportedDirective.Threshold.RepeatInterval;
 
                 lastComplianceDate =
-                    reportedDirective.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                    reportedDirective.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 lastCompliance = reportedDirective.LastPerformance.OnLifelength;
 
                 used.Add(_current);
@@ -640,7 +641,7 @@ namespace CASReports.Builders
 
             var nextComplianceDate = reportedDirective.NextPerformanceDate != null
                                             ? ((DateTime)reportedDirective.NextPerformanceDate).ToString(
-                                                new GlobalTermsProvider()["DateFormat"].ToString())
+                                                GlobalTermsProvider.Terms["DateFormat"].ToString())
                                             : "";
             var nextCompliance = reportedDirective.NextPerformanceSource;
 
@@ -750,9 +751,9 @@ namespace CASReports.Builders
                 discriptiontitle = "DESCRIPTION";
             }
 
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, OperatorLogotype, _filterSelection, _dateAsOf, firsttitle, discriptiontitle, secondtitle, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -778,7 +779,7 @@ namespace CASReports.Builders
                 ? _forecastData.ForecastLifelength.Days != null ? (int)_forecastData.ForecastLifelength.Days : 0
                 : 0;
             var forecastDate = _forecastData != null
-                ? _forecastData.ForecastDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? _forecastData.ForecastDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : "";
             destinationDataSet.ForecastTable.AddForecastTableRow(avgUtilizationCycles,
                                                                  avgUtilizationHours,

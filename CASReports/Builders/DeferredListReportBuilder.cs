@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -139,7 +140,7 @@ namespace CASReports.Builders
             var reportAircraftLifeLenght =
                 GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var serialNumber = _reportedAircraft.SerialNumber;
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0 ;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -188,11 +189,11 @@ namespace CASReports.Builders
         {
             GlobalObjects.PerformanceCalculator.GetNextPerformance(directive);
             string category = directive.DeferredCategory != null ? directive.DeferredCategory.ToString() :"N/A";
-            string discoveryDate = directive.Threshold.EffectiveDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            string discoveryDate = directive.Threshold.EffectiveDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             string nextDate = directive.NextPerformanceDate != null
-                ? ((DateTime)directive.NextPerformanceDate).ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? ((DateTime)directive.NextPerformanceDate).ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : (directive.LastPerformance != null
-                    ? directive.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                    ? directive.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                     :"");
 
             string interval = directive.LastPerformance != null
@@ -202,7 +203,7 @@ namespace CASReports.Builders
                 : directive.Threshold.FirstPerformanceSinceEffectiveDate.Days.ToString();
 
             string lastCompliance = directive.LastPerformance != null
-                ? directive.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? directive.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : "";
             string status = "";
             if (directive.Status == DirectiveStatus.Closed ||
@@ -242,9 +243,9 @@ namespace CASReports.Builders
             string model = _reportedBaseComponent != null && _reportedBaseComponent.Model != null 
                 ? _reportedBaseComponent.Model.ToString() : 
                 _reportedAircraft.Model.ToString();
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, DateAsOf, model, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }

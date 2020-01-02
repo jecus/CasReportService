@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 using CrystalDecisions.CrystalReports.Engine;
@@ -40,7 +41,7 @@ namespace CASReports.Builders
 			_transferRecords = transferRecords;
 			_currentStore = currentStore;
 			_formName = "F SK 044 R0  30Aug2016";
-			_footer = new GlobalTermsProvider()["ReportFooter"].ToString();
+			_footer = GlobalTermsProvider.Terms["ReportFooter"].ToString();
 		}
 
 		public TrackingListBuilder(Operator @operator, TransferRecord[] transferRecords, Store currentStore, Specialist received, Specialist released)
@@ -104,8 +105,8 @@ namespace CASReports.Builders
 		/// <param name="trackingListDataSet"></param>
 		private void AddAdditionalDataToDataSet(TrackingListDataSet trackingListDataSet)
 		{
-			var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-			var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+			var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+			var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
 			_dateAsOf = DateTime.Today.ToString("dd MM yyyy");
 			
 			trackingListDataSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, _dateAsOf, _footer, reportFooterPrepared, reportFooterLink, _formName, _released?.ToString(), _received?.ToString());
@@ -119,7 +120,7 @@ namespace CASReports.Builders
 		{
 			foreach (var transferRecord in _transferRecords)
 			{
-				var date = transferRecord.TransferDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+				var date = transferRecord.TransferDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 				var goodClass = transferRecord.GoodsClass;
 				var reason = transferRecord.Reason;
 				var description = transferRecord.Description;

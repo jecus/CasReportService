@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -272,7 +273,7 @@ namespace CASReports.Builders
                 sinceLastCCheckCalendar = sinceLast.CalendarValue != null ? sinceLast.CalendarSpan.Years.ToString() : "--";
             }
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
             var sinceNewCalendar = reportAircraftLifeLenght.Days != null ? reportAircraftLifeLenght.CalendarSpan.Years.ToString() : "--";
@@ -409,7 +410,7 @@ namespace CASReports.Builders
                     if(lastOverhaul != null)
                     {
                         betweenOverhaul = lastOverhaul.Threshold.RepeatInterval;
-                        lastOverhaulDateString = lastOverhaulDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                        lastOverhaulDateString = lastOverhaulDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                         lastOverhaulHours = lastOverhaul.LastPerformance.OnLifelength.Hours != null
                                                 ? lastOverhaul.LastPerformance.OnLifelength.Hours.ToString()
                                                 : "";
@@ -537,11 +538,11 @@ namespace CASReports.Builders
                 GlobalObjects.CasEnvironment.GetDictionary<DocumentSubType>().ToArray().FirstOrDefault(d => d.FullName == "AW");
             Document awDoc = awType != null ? aircraftDocs.FirstOrDefault(d => d.DocumentSubType == awType):null;
             string awUpTo = awDoc != null && awDoc.IssueValidTo
-                                ? awDoc.IssueDateValidTo.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                                ? awDoc.IssueDateValidTo.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                                 : "";
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, OperatorLogotype, awUpTo, DateAsOf, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }

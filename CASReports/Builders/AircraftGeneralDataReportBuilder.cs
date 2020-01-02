@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -178,7 +179,7 @@ namespace CASReports.Builders
             GlobalObjects.CasEnvironment.GetDictionary<DocumentSubType>().ToArray().FirstOrDefault(d => d.FullName == "AOC");
             if (aocType != null)
                 operatorDocs.Remove(operatorDocs.FirstOrDefault(d => d.DocumentSubType == aocType));
-            string manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            string manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             int sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
             int sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
             destinationDataSet.AircraftDataTable.AddAircraftDataTableRow(_reportedAircraft.SerialNumber,
@@ -305,7 +306,7 @@ namespace CASReports.Builders
                     if(lastOverhaul != null)
                     {
                         betweenOverhaul = lastOverhaul.Threshold.RepeatInterval;
-                        lastOverhaulDateString = lastOverhaulDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                        lastOverhaulDateString = lastOverhaulDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                         lastOverhaulHours = lastOverhaul.LastPerformance.OnLifelength.Hours != null
                                                 ? lastOverhaul.LastPerformance.OnLifelength.Hours.ToString()
                                                 : "";
@@ -406,7 +407,7 @@ namespace CASReports.Builders
                     var minCheck = lastComplianceGroups.GetMinIntervalCheck();
                     var repeatInterval = minCheck.Interval;
                     //расчет остатка от выполнения с даты производтсва
-                    var lastComplianceDate = maxCheck.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                    var lastComplianceDate = maxCheck.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 	                var lastCompliance = maxCheck.LastPerformance.OnLifelength;
 					var remains = minCheck.Remains;
                     var condition = minCheck.Condition ?? ConditionState.NotEstimated;
@@ -443,11 +444,11 @@ namespace CASReports.Builders
                 GlobalObjects.CasEnvironment.GetDictionary<DocumentSubType>().ToArray().FirstOrDefault(d => d.FullName == "AW");
             Document awDoc = awType != null ? aircraftDocs.FirstOrDefault(d => d.DocumentSubType == awType):null;
             string awUpTo = awDoc != null && awDoc.IssueValidTo
-                                ? awDoc.IssueDateValidTo.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                                ? awDoc.IssueDateValidTo.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                                 : "";
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, OperatorLogotype, awUpTo, DateAsOf, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -471,7 +472,7 @@ namespace CASReports.Builders
             var aocType = (DocumentSubType) GlobalObjects.CasEnvironment.GetDictionary<DocumentSubType>().ToArray().FirstOrDefault(d => d.FullName == "AOC");
             var awDoc = aocType != null ? operatorDocs.FirstOrDefault(d => d.DocumentSubType == aocType) : null;
             string aocUpTo = awDoc != null && awDoc.IssueValidTo
-                                ? awDoc.IssueDateValidTo.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                                ? awDoc.IssueDateValidTo.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                                 : "";
             
             destinationDateSet.OperatorTable.AddOperatorTableRow(_reportedAircraft.Owner, 

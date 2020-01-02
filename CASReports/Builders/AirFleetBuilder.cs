@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -70,10 +71,10 @@ namespace CASReports.Builders
 			var op = GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == _aircrafts[0].OperatorId);
 
 			var logo = op.LogoTypeWhite;
-            var dateAsOf = DateTime.Today.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ReportFooterLink"].ToString();
+            var dateAsOf = DateTime.Today.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
             var operat = op.Name;
             destinationDateSet.GeneralInformation.AddGeneralInformationRow(logo, dateAsOf, reportFooter,
                                                                            reportFooterPrepared, reportFooterLink,operat);
@@ -107,7 +108,7 @@ namespace CASReports.Builders
         {
             string model = currentAircraft.Model.ToString();
             string serialNumber = currentAircraft.SerialNumber;
-            string manufactureDate = currentAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            string manufactureDate = currentAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             string registrationNumber = currentAircraft.RegistrationNumber;
             string engineCaption1 = "";
             string engineCaption2 = "";
@@ -128,10 +129,10 @@ namespace CASReports.Builders
 
             string deliveryDate = "";
             if (currentAircraft.DeliveryDate!=null)
-                deliveryDate = ((DateTime)currentAircraft.DeliveryDate).ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                deliveryDate = ((DateTime)currentAircraft.DeliveryDate).ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             string acceptanceDate = "";
             if (currentAircraft.AcceptanceDate!=null)
-                acceptanceDate =((DateTime) currentAircraft.AcceptanceDate).ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                acceptanceDate =((DateTime) currentAircraft.AcceptanceDate).ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 
             destinationDataSet.ItemData.AddItemDataRow(model, serialNumber, registrationNumber, lineNumber,
                                                        variableNumber, manufactureDate, deliveryDate, acceptanceDate,

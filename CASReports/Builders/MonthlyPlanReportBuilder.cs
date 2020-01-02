@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 using Convert = System.Convert;
@@ -280,7 +281,7 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var serialNumber = _reportedAircraft.SerialNumber;
             var model = _reportedAircraft.Model.ToString();
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
@@ -352,7 +353,7 @@ namespace CASReports.Builders
         //        if (reportedDirective.Interval != null) repeatInterval = reportedDirective.Interval;
 
         //        lastComplianceDate =
-        //                reportedDirective.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+        //                reportedDirective.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
         //        lastCompliance =
         //            GlobalObjects.CasEnvironment.Calculator.GetLifelength(_reportedAircraft.Frame, reportedDirective.LastPerformance.RecordDate);
 
@@ -369,7 +370,7 @@ namespace CASReports.Builders
 
         //    nextComplianceDate = approximate != null
         //                                 ? ((DateTime)approximate).ToString(
-        //                                     new GlobalTermsProvider()["DateFormat"].ToString())
+        //                                     GlobalTermsProvider.Terms["DateFormat"].ToString())
         //                                 : "";
         //    nextCompliance = next ?? Lifelength.Null;
 
@@ -405,9 +406,9 @@ namespace CASReports.Builders
         /// <param name="destinationDateSet"></param>
         private void AddAdditionalDataToDataSet(MonthlyPlanDataSet destinationDateSet)
         {
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, _dateAsOf, reportFooter, reportFooterPrepared, reportFooterLink);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -144,9 +145,9 @@ namespace CASReports.Builders
 			string discriptiontitle = "Description";
 			string secondtitle = "Task Card №";
 
-			string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-			string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-			string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+			string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+			string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+			string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
 			destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, "", "", firsttitle, secondtitle, discriptiontitle, reportFooter, reportFooterPrepared, reportFooterLink);
 		}
 	}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -294,7 +295,7 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var serialNumber = _reportedAircraft.SerialNumber;
             var model = _reportedAircraft.Model.ShortName;
             var registrationNumber = _reportedAircraft.RegistrationNumber;
@@ -346,8 +347,8 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedBaseComponent);
 
-            var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var status = _reportedBaseComponent.Serviceable ? "Serviceable" : "Unserviceable";
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -365,7 +366,7 @@ namespace CASReports.Builders
             var installationDate = _reportedBaseComponent.TransferRecords.GetLast().TransferDate;
 			//TODO:(Evgenii Babak)  нужно брать наработку с записи о перемещении, а не пересчитывать заново
 			var onInstall = GlobalObjects.CasEnvironment.Calculator.GetFlightLifelengthOnEndOfDay(_reportedBaseComponent, installationDate);
-            var onInstallDate = installationDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var onInstallDate = installationDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var onInstallHours = onInstall.Hours != null ? onInstall.Hours.ToString() : "";
             var onInstallCycles = onInstall.Cycles != null ? onInstall.Cycles.ToString() : "";
             var onInstallDays = onInstall.Days != null ? onInstall.Days.ToString() : "";
@@ -415,7 +416,7 @@ namespace CASReports.Builders
             {
                 sinceOverhaul.Add(reportAircraftLifeLenght);
                 sinceOverhaul.Substract(lastOverhaul.LastPerformance.OnLifelength);
-                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             }
 
             #endregion
@@ -543,9 +544,9 @@ namespace CASReports.Builders
 				.ToList();
             for (int i = 0; i < categories.Count && i < 4; i++)categoryNames[i] = categories[i].Category;
 
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             int averageUtilizationHours;
             int averageUtilizationCycles;
             string averageUtilizationType;
@@ -624,7 +625,7 @@ namespace CASReports.Builders
                     : 0
                 : 0;
             string forecastDate = _forecast != null
-                ? _forecast.ForecastDatas[0].ForecastDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? _forecast.ForecastDatas[0].ForecastDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : "";
             destinationDataSet.ForecastTable.AddForecastTableRow(avgUtilizationCycles,
                                                                  avgUtilizationHours,

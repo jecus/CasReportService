@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -70,9 +71,9 @@ namespace CASReports.Builders
             if (IsFiltered)
                 reportHeader += ". Filtered";
             _dataSet.AdditionalDataTable.AddAdditionalDataTableRow(0, reportHeader, location,
-                                                                  new GlobalTermsProvider()["ReportFooter"].ToString(),
-                                                                  new GlobalTermsProvider()["ReportFooterPrepared"].ToString(),
-                                                                  new GlobalTermsProvider()["ReportFooterLink"].ToString(), operatorLogotype);
+                                                                  GlobalTermsProvider.Terms["ReportFooter"].ToString(),
+                                                                  GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString(),
+                                                                  GlobalTermsProvider.Terms["ReportFooterLink"].ToString(), operatorLogotype);
         }
 
         #endregion

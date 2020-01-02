@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -104,7 +105,7 @@ namespace CASReports.Builders
 
 		private void AddReleaseToServiceInformationToDataSet(WorkPackageTitlePageDataSet destinationDataSet)
 		{
-			var termsProvider = new GlobalTermsProvider();
+			var termsProvider = GlobalTermsProvider.Terms;
 			var aircraft = _currentWorkPackage.Aircraft;
 			var totalFlight = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(aircraft);
 			var op = GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == aircraft.OperatorId);

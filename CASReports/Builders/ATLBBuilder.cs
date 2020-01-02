@@ -1,5 +1,6 @@
 using System;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -12,7 +13,7 @@ namespace CASReports.Builders
         #region Fields
 
         private readonly ATLB _currentATLB;
-        private readonly GlobalTermsProvider _termsProvider = new GlobalTermsProvider();
+        private readonly GlobalTermsProvider _termsProvider = GlobalTermsProvider.Terms;
         private int _currentPageNumber;
         private readonly string _ATASpec = "ATA SPEC 5 6 7 8 9 10 11 12 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 49 51 52 52 54 55 56 57 71 72 73 74 75 76 77 78 79 80";
         //private List<MaintenanceCheckJobCard> MaintenanceSubChecks;
@@ -121,8 +122,8 @@ namespace CASReports.Builders
             var revision = _termsProvider["Revision"].ToString();
             var caaRequirements = _termsProvider["CAARequirements"].ToString();
             var pageNumber = (_currentPageNumber++).ToString().PadLeft(5, '0');//todo проверить
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ReportFooterLink"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
             var specialistCaptain = 
                 aircraftFlight.GetSpecialistBySpecializationId(1);
             var specialistCopilot =
@@ -540,8 +541,8 @@ namespace CASReports.Builders
 			var revision = _termsProvider["Revision"].ToString();
 			var _CAARequirements = _termsProvider["CAARequirements"].ToString();
 			var pageNumber = (_currentPageNumber++).ToString().PadLeft(5, '0');
-			var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-			var reportFooterLink = new GlobalTermsProvider()["ReportFooterLink"].ToString();
+			var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+			var reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
 			var aircraftFlightNo = aircraftFlight.FlightNumber.ToString();
 			var aircraftFlightDate = aircraftFlight.FlightDate.ToString(_termsProvider["DateFormat"].ToString());
 			var aircraftModel = aircraft.Model.ToString();

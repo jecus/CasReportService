@@ -1,4 +1,5 @@
 ﻿using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -73,9 +74,9 @@ namespace CASReports.Builders
                 secondtitle = "\n (EO, MJC)";
                 discriptiontitle = "DESCRIPTION";
             }
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, DateAsOf, firsttitle, secondtitle, discriptiontitle, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -278,8 +279,8 @@ namespace CASReports.Builders
                 reportAircraftLifeLenght =
                     GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedComponent);
             }
-            var manufactureDate = _reportedComponent.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var deliveryDate = _reportedComponent.DeliveryDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedComponent.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var deliveryDate = _reportedComponent.DeliveryDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var status = _reportedComponent.ComponentStatus;
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -300,7 +301,7 @@ namespace CASReports.Builders
 			var remainCycles = remain.Cycles != null && remain.Cycles != 0 ? remain.Cycles.ToString() : "";
 			var remainDays = remain.Days != null && remain.Days != 0 ? remain.Days.ToString() : "";
 			var onInstall = baseComponent?.ActualStateRecords.GetLastKnownRecord(lastTransferRecord.RecordDate)?.OnLifelength ?? Lifelength.Null; ;
-			var onInstallDate = installationDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+			var onInstallDate = installationDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 			var onInstallHours = onInstall.Hours != null && onInstall.Hours != 0 ? onInstall.Hours.ToString() : "";
 			var onInstallCycles = onInstall.Cycles != null && onInstall.Cycles != 0 ? onInstall.Cycles.ToString() : "";
 			var onInstallDays = onInstall.Days != null && onInstall.Days != 0 ? onInstall.Days.ToString() : "";
@@ -375,7 +376,7 @@ namespace CASReports.Builders
             {
                 sinceOverhaul.Add(reportAircraftLifeLenght);
                 sinceOverhaul.Substract(lastOverhaul.LastPerformance.OnLifelength);
-                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             }
 
             #endregion
@@ -519,7 +520,7 @@ namespace CASReports.Builders
                 {
                     sinceNewComplianceDate =
                         _manufactureDate.AddDays(sinceNewThreshold.Days.Value).ToString(
-                            new GlobalTermsProvider()["DateFormat"].ToString());
+                            GlobalTermsProvider.Terms["DateFormat"].ToString());
                 }
                 if (detailDirective.LastPerformance == null)
                 {
@@ -534,13 +535,13 @@ namespace CASReports.Builders
             {
                 firstComplianceDate =
                     detailDirective.PerformanceRecords[0].RecordDate.ToString(
-                        new GlobalTermsProvider()["DateFormat"].ToString());
+                        GlobalTermsProvider.Terms["DateFormat"].ToString());
                 firstCompliance = detailDirective.PerformanceRecords[0].OnLifelength;
 
                 if (detailDirective.Threshold.RepeatInterval != null) repeatInterval = detailDirective.Threshold.RepeatInterval;
 
                 lastComplianceDate =
-                    detailDirective.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                    detailDirective.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 lastCompliance = detailDirective.LastPerformance.OnLifelength;
 
                 used.Add(_current);
@@ -560,7 +561,7 @@ namespace CASReports.Builders
 
             nextComplianceDate = detailDirective.NextPerformanceDate != null
                                      ? ((DateTime)detailDirective.NextPerformanceDate).ToString(
-                                         new GlobalTermsProvider()["DateFormat"].ToString())
+                                         GlobalTermsProvider.Terms["DateFormat"].ToString())
                                      : "";
             nextCompliance = detailDirective.NextPerformanceSource ?? Lifelength.Null;
 
@@ -638,9 +639,9 @@ namespace CASReports.Builders
 			var discriptiontitle = "";
 			var secondtitle = "";
 
-			var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-			var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-			var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+			var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+			var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+			var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, OperatorLogotype, _filterSelection, DateAsOf, firsttitle, discriptiontitle, secondtitle, reportFooter, reportFooterPrepared, _thrust);
 
         }
@@ -666,7 +667,7 @@ namespace CASReports.Builders
                 ? _forecastData.ForecastLifelength.Days != null ? (int)_forecastData.ForecastLifelength.Days : 0
                 : 0;
 			var forecastDate = _forecastData != null
-                ? _forecastData.ForecastDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? _forecastData.ForecastDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : "";
             destinationDataSet.ForecastTable.AddForecastTableRow(avgUtilizationCycles,
                                                                  avgUtilizationHours,

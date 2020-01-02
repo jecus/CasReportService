@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -273,9 +274,9 @@ namespace CASReports.Builders
                 reportHeader = _reportedAircraft.RegistrationNumber + ". " + ReportTitle;
             if (_isFiltered)
                 reportHeader += ". Filtered";
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ReportFooterLink"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
             destinationDateSet.AdditionalDataTable.AddAdditionalDataTableRow(ReportType , reportHeader, _dateAsOfData, reportFooter,
                                                                              reportFooterPrepared, reportFooterLink);
         }
@@ -305,7 +306,7 @@ namespace CASReports.Builders
         {
             var registrationNumber = _reportedAircraft.RegistrationNumber;
             var serialNumber = _reportedAircraft.SerialNumber;
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var lineNumberCaption = "";
             var variableNumberCaption = "";
             var lifelength = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);

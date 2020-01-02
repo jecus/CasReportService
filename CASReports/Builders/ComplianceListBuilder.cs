@@ -1,4 +1,5 @@
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -95,7 +96,7 @@ namespace CASReports.Builders
 	            if (_directiveRecords[i] is TransferRecord)
 	            {
 		            var transferRecord = (TransferRecord)_directiveRecords[i];
-					dataset.ComplianceList.AddComplianceListRow(i, transferRecord.TransferDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString()),
+					dataset.ComplianceList.AddComplianceListRow(i, transferRecord.TransferDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()),
 																"Transfer Record",
 																transferRecord.OnLifelength.ToString(),
 																transferRecord.Remarks);
@@ -103,7 +104,7 @@ namespace CASReports.Builders
 	            if (_directiveRecords[i] is ActualStateRecord)
 	            {
 		            var actualStateRec = (ActualStateRecord)_directiveRecords[i];
-					dataset.ComplianceList.AddComplianceListRow(i, actualStateRec.RecordDate.Date.ToString(new GlobalTermsProvider()["DateFormat"].ToString()),
+					dataset.ComplianceList.AddComplianceListRow(i, actualStateRec.RecordDate.Date.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()),
 																"Actual State Record",
 																actualStateRec.OnLifelength.ToString(),
 																actualStateRec.Remarks);
@@ -111,13 +112,13 @@ namespace CASReports.Builders
 	            if (_directiveRecords[i] is DirectiveRecord)
 	            {
 		            var directiveRecord = (DirectiveRecord)_directiveRecords[i];
-					dataset.ComplianceList.AddComplianceListRow(i, directiveRecord.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString()),
+					dataset.ComplianceList.AddComplianceListRow(i, directiveRecord.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()),
 																directiveRecord.RecordType.ToString(),
 																directiveRecord.OnLifelength.ToString(),
 																directiveRecord.Remarks);
 				}
             }
-            dataset.AdditionalTable.AddAdditionalTableRow(0, _dateAsOf, _reportName, (string)new GlobalTermsProvider()["ReportFooterPrepared"], (string)new GlobalTermsProvider()["ReportFooterLink"]);
+            dataset.AdditionalTable.AddAdditionalTableRow(0, _dateAsOf, _reportName, (string)GlobalTermsProvider.Terms["ReportFooterPrepared"], (string)GlobalTermsProvider.Terms["ReportFooterLink"]);
             
 
             return dataset;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -67,10 +68,10 @@ namespace CASReports.Builders
         {
             var reportHeader = "Aircraft Utilization Report";
             var model = _currentAircraft.Model.ShortName;
-            var dateAsOf = DateTime.Today.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            var dateAsOf = DateTime.Today.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(reportHeader, GlobalObjects.CasEnvironment.Operators[0].LogotypeReportLarge, dateAsOf, model, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -87,7 +88,7 @@ namespace CASReports.Builders
         {
 	        var aircraftLifelength = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_currentAircraft);
 			string serialNumber = _currentAircraft.SerialNumber;
-            string manufactureDate = _currentAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            string manufactureDate = _currentAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             string sinceNewHours = aircraftLifelength.ToHoursMinutesFormat("");
             string sinceNewCycles = aircraftLifelength.Cycles.ToString().Trim();
             string registrationNumber = _currentAircraft.RegistrationNumber;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -165,20 +166,20 @@ namespace CASReports.Builders
 					{
 						if (mcr.DirectivePackage.Status == WorkPackageStatus.Published)
 						{
-							checkStartEndString = mcr.DirectivePackage.PublishingDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+							checkStartEndString = mcr.DirectivePackage.PublishingDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 							checkStartEndString += " - Present day";
 						}
 						if(mcr.DirectivePackage.Status == WorkPackageStatus.Closed)
 						{
-							checkStartEndString = mcr.DirectivePackage.PublishingDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-							checkStartEndString += " - " + mcr.DirectivePackage.ClosingDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+							checkStartEndString = mcr.DirectivePackage.PublishingDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+							checkStartEndString += " - " + mcr.DirectivePackage.ClosingDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 							
 						}
 						station = mcr.DirectivePackage.Station;
 					}
 					else
 					{
-						checkStartEndString = mcr.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+						checkStartEndString = mcr.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 						station = "--";
 					}
 				}

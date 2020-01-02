@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -85,10 +86,10 @@ namespace CASReports.Builders
                 reportHeader = _currentOperator.Name + ". Should be on stock";
             }
             dataSet.AdditionalDataTable.AddAdditionalDataTableRow(reportHeader, location,
-                                                                      new GlobalTermsProvider()["ReportFooter"].ToString(),
-                                                                      new GlobalTermsProvider()["ReportFooterPrepared"].
+                                                                      GlobalTermsProvider.Terms["ReportFooter"].ToString(),
+                                                                      GlobalTermsProvider.Terms["ReportFooterPrepared"].
                                                                           ToString(),
-                                                                      new GlobalTermsProvider()["ReportFooterLink"].ToString(),
+                                                                      GlobalTermsProvider.Terms["ReportFooterLink"].ToString(),
                                                                       operatorLogotype);
            
         }

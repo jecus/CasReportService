@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -233,9 +234,9 @@ namespace CASReports.Builders
             var reportHeader = ReportedAircraft.RegistrationNumber + ". " + ReportTitle;
             DateAsOf = SmartCore.Auxiliary.Convert.GetDateFormat(DateTime.Today);
 
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
         
             destinationDateSet.
                 AdditionalDataTAble.

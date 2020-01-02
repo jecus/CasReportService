@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -113,9 +114,9 @@ namespace CASReports.Builders
 
 		private void AddAdditionalDataToDataSet(SupplierDataSet dataset)
 		{
-			var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-			var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-			var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+			var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+			var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+			var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
 			_dateAsOf = DateTime.Today.ToString("dd MM yyyy");
 			dataset.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, _dateAsOf, reportFooter, reportFooterPrepared, reportFooterLink, _formName);
 		}

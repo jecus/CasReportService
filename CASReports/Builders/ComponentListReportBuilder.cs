@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -336,7 +337,7 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedAircraft);
 
-            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var serialNumber = _reportedAircraft.SerialNumber;
             var model = _reportedAircraft.Model.ShortName;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -386,8 +387,8 @@ namespace CASReports.Builders
 
             var reportAircraftLifeLenght = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_reportedBaseComponent);
 
-            var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _reportedBaseComponent.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var deliveryDate = _reportedBaseComponent.DeliveryDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var status = _reportedBaseComponent.Serviceable ? "Serviceable" : "Unserviceable";
             var sinceNewHours = reportAircraftLifeLenght.Hours != null ? (int)reportAircraftLifeLenght.Hours : 0;
             var sinceNewCycles = reportAircraftLifeLenght.Cycles != null ? (int)reportAircraftLifeLenght.Cycles : 0;
@@ -405,7 +406,7 @@ namespace CASReports.Builders
             var installationDate = _reportedBaseComponent.TransferRecords.GetLast().TransferDate;
 			//TODO:(Evgenii Babak)  нужно брать наработку с записи о выполнении, а не пересчитывать заново
 			var onInstall = GlobalObjects.CasEnvironment.Calculator.GetFlightLifelengthOnEndOfDay(_reportedBaseComponent, installationDate);
-            var onInstallDate = installationDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var onInstallDate = installationDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var onInstallHours = onInstall.Hours != null ? onInstall.Hours.ToString() : "";
             var onInstallCycles = onInstall.Cycles != null ? onInstall.Cycles.ToString() : "";
             var onInstallDays = onInstall.Days != null ? onInstall.Days.ToString() : "";
@@ -456,7 +457,7 @@ namespace CASReports.Builders
             {
                 sinceOverhaul.Add(reportAircraftLifeLenght);
                 sinceOverhaul.Substract(lastOverhaul.LastPerformance.OnLifelength);
-                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                lastOverhaulDateString = lastOverhaul.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             }
 
             #endregion
@@ -597,7 +598,7 @@ namespace CASReports.Builders
                 {
                     nextComplianceDate = directive.NextPerformanceDate != null
                                      ? ((DateTime) directive.NextPerformanceDate).ToString(
-                                         new GlobalTermsProvider()["DateFormat"].ToString())
+                                         GlobalTermsProvider.Terms["DateFormat"].ToString())
                                      : "";
                     remain.Add(nextPerformanceSource); 
                     remain.Substract(componentCurrent);
@@ -621,7 +622,7 @@ namespace CASReports.Builders
                 {
                     lastPerformance = directive.LastPerformance;
                     lastComplianceDate =
-                        directive.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                        directive.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                     lastCompliance = directive.LastPerformance.OnLifelength;
 
                     used.Substract(lastCompliance);
@@ -759,9 +760,9 @@ namespace CASReports.Builders
         /// <param name="destinationDateSet"></param>
         private void AddAdditionalDataToDataSet(ComponentListDataSet destinationDateSet)
         {
-            string reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            string reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            string reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            string reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            string reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            string reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(_reportTitle, _operatorLogotype, _filterSelection, DateAsOf, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -805,7 +806,7 @@ namespace CASReports.Builders
                     : 0
                 : 0;
             string forecastDate = _forecast != null
-                ? _forecast.ForecastDatas[0].ForecastDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString())
+                ? _forecast.ForecastDatas[0].ForecastDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString())
                 : "";
             destinationDataSet.ForecastTable.AddForecastTableRow(avgUtilizationCycles,
                                                                  avgUtilizationHours,

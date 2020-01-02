@@ -50,7 +50,7 @@ namespace CASReports.Builders
         //private void AddGeneralInformation(ComponentChangeDataSet dataSet)
         //{
         //    byte[] logotype = aircraft.Operator.LogoTypeWhite;
-        //    GlobalTermsProvider provider = new GlobalTermsProvider();
+        //    GlobalTermsProvider provider = GlobalTermsProvider.Terms;
         //    string dateAsOf = DateTime.Today.ToString(provider["DateFormat"].ToString());
         //    string reportFooter = provider["ReportFooter"].ToString();
         //    string reportFooterPrepeared = provider["ReportFooterPrepared"].ToString();
@@ -69,7 +69,7 @@ namespace CASReports.Builders
         //{
         //    LifelengthFormatter lifelengthFormatter = new LifelengthFormatter();
         //    string serialNumber = aircraft.SerialNumber;
-        //    string manufactureDate = aircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+        //    string manufactureDate = aircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
         //    string registrationNumber = aircraft.RegistrationNumber;
         //    string SinceNewHours = lifelengthFormatter.GetHoursData(new TimeSpan((int)GlobalObjects.CasEnvironment.Calculator.GetLifelength(aircraft).Hours,0,0)).Trim();
         //    string sinceNewCycles =
@@ -117,9 +117,9 @@ namespace CASReports.Builders
         //                             + " P/N:" + detail.PartNumber + " S/N: " + detail.SerialNumber;
         //    if (isTransferContainerIdInBaseDetail(item.ParentID) ||
         //    (item.ParentBaseDetail.DetailType.ItemID==4 && item.ParentID == aircraft.AircraftID))
-        //            dataSet.ComponentChangeList.AddComponentChangeListRow(item.TransferDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString()), "", description);
+        //            dataSet.ComponentChangeList.AddComponentChangeListRow(item.TransferDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()), "", description);
         //        else
-        //            dataSet.ComponentChangeList.AddComponentChangeListRow(item.TransferDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString()), description, "");
+        //            dataSet.ComponentChangeList.AddComponentChangeListRow(item.TransferDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()), description, "");
             
         //}
 

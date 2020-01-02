@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 using CASReports.ReportTemplates;
 
@@ -122,10 +123,10 @@ namespace CASReports.Builders
         {
             var reportHeader = _currentAircraft.RegistrationNumber + ". Monthly Utilization";
             var model = _currentAircraft.Model.ToString();
-            var dateAsOf = DateTime.Today.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            var dateAsOf = DateTime.Today.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(reportHeader, GlobalObjects.CasEnvironment.Operators[0].LogotypeReportLarge, dateAsOf, model, reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -142,7 +143,7 @@ namespace CASReports.Builders
         {
 	        var aircraftLifelength = GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_currentAircraft);
 			var serialNumber = _currentAircraft.SerialNumber;
-            var manufactureDate = _currentAircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var manufactureDate = _currentAircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var sinceNewHours = aircraftLifelength.Hours.ToString();
             var sinceNewCycles = aircraftLifelength.Cycles.ToString().Trim();
             var registrationNumber = _currentAircraft.RegistrationNumber;
@@ -253,7 +254,7 @@ namespace CASReports.Builders
         protected virtual void AddFlight(MonthlyUtilizationDataSet dataSet, AircraftFlight item, string groupName,int counter)
         {
 			//TODO: (Evgenii Babak) сравнить подход в этом методе с подходом в MonthlyutilizationListView. Нужно вынести в отдельный метод BL
-            var dateString = item.FlightDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            var dateString = item.FlightDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var route = item.StationFromId.ShortName + " - " + item.StationToId.ShortName;
             var flightTimeString = UsefulMethods.TimeToString(new TimeSpan(0, 0, item.FlightTimeTotalMinutes, 0)) + " (" +
                                    UsefulMethods.TimePeriodToString(new TimeSpan(0, 0, item.TakeOffTime, 0),

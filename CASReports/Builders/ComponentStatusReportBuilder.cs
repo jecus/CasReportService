@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.Models;
 
 namespace CASReports.Builders
@@ -71,7 +72,7 @@ namespace CASReports.Builders
                                    LifelengthFormatter.GetCyclesData(current, " cyc\r\n");
             var condition = UsefulMethods.GetColorName(component);
             var nextDate = nextDateTime != null 
-                                  ? ((DateTime)nextDateTime).ToString(new GlobalTermsProvider()["DateFormat"].ToString()) 
+                                  ? ((DateTime)nextDateTime).ToString(GlobalTermsProvider.Terms["DateFormat"].ToString()) 
                                   : "";
             var componentNumber = (previousNumber++).ToString();
             
@@ -118,7 +119,7 @@ namespace CASReports.Builders
             GlobalObjects.PerformanceCalculator.GetNextPerformance(directive);
             var nextTsncsn = LifelengthFormatter.GetHoursData(directive.NextPerformanceSource, " hrs\r\n") + LifelengthFormatter.GetCyclesData(directive.NextPerformanceSource, " cyc\r\n");
             if (directive.NextPerformanceDate != null)
-                nextDate = ((DateTime)directive.NextPerformanceDate).ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                nextDate = ((DateTime)directive.NextPerformanceDate).ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             var remains = LifelengthFormatter.GetCalendarData(directive.Remains, " d\r\n") + LifelengthFormatter.GetHoursData(directive.Remains, " h\r\n") + LifelengthFormatter.GetCyclesData(directive.Remains, " c\r\n");
 
             if (remains == "")
@@ -132,7 +133,7 @@ namespace CASReports.Builders
 			{
 				var lastComplianceTsncsnlLifelength = directive.LastPerformance.OnLifelength;
 				lastComplianceTsncsn = LifelengthFormatter.GetHoursData(lastComplianceTsncsnlLifelength, " hrs\r\n") + LifelengthFormatter.GetCyclesData(lastComplianceTsncsnlLifelength, " cyc\r\n");
-                lastComplianceDate = directive.LastPerformance.RecordDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+                lastComplianceDate = directive.LastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 directiveRemarks = directive.LastPerformance.Remarks;
             }
             

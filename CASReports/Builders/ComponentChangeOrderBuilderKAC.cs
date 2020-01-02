@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Helpers;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
@@ -104,9 +105,9 @@ namespace CASReports.Builders
         private void AddAdditionalDataToDataSet(ComponentChangeOrderDataSet destinationDateSet)
         {
             var reportHeader = "Component Change Order";
-            var reportFooter = new GlobalTermsProvider()["ReportFooter"].ToString();
-            var reportFooterPrepared = new GlobalTermsProvider()["ReportFooterPrepared"].ToString();
-            var reportFooterLink = new GlobalTermsProvider()["ProductWebsite"].ToString();
+            var reportFooter = GlobalTermsProvider.Terms["ReportFooter"].ToString();
+            var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
+            var reportFooterLink = GlobalTermsProvider.Terms["ProductWebsite"].ToString();
             destinationDateSet.AdditionalDataTAble.AddAdditionalDataTAbleRow(GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == _currentWorkPackage.Aircraft.OperatorId).LogotypeReportLarge, reportHeader, "", "", "", reportFooter, reportFooterPrepared, reportFooterLink);
 
         }
@@ -125,7 +126,7 @@ namespace CASReports.Builders
                 return;
 	        var aircraftLifelength =GlobalObjects.CasEnvironment.Calculator.GetCurrentFlightLifelength(_currentWorkPackage.Aircraft);
 			string serialNumber = _currentWorkPackage.Aircraft.SerialNumber;
-            string manufactureDate = _currentWorkPackage.Aircraft.ManufactureDate.ToString(new GlobalTermsProvider()["DateFormat"].ToString());
+            string manufactureDate = _currentWorkPackage.Aircraft.ManufactureDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
             string sinceNewHours = aircraftLifelength.Hours.ToString();
             string sinceNewCycles = aircraftLifelength.Cycles.ToString().Trim();
             string lineNumberCaption = "";
