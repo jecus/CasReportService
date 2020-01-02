@@ -2,6 +2,7 @@
 using System.Data;
 using System.Text;
 using CASReports.Datasets;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders

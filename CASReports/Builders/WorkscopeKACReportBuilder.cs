@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders

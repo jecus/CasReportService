@@ -875,6 +875,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WPIncomingInspectionDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Models\Aircraft.cs" />
+    <Compile Include="Models\BaseModel.cs" />
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Lifelength.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

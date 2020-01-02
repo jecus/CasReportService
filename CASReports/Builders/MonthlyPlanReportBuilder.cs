@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 using Convert = System.Convert;
 
