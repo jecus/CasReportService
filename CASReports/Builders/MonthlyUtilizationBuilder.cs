@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using CASReports.Datasets;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders

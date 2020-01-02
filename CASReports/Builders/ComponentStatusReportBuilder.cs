@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using CASReports.Datasets;
+using CASReports.Models;
 
 namespace CASReports.Builders
 {

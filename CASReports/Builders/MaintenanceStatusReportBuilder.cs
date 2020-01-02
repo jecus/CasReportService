@@ -1,5 +1,6 @@
 using System;
 using CASReports.Datasets;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
