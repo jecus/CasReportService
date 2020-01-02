@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using CASReports.Datasets;
 using CASReports.Helpers;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders

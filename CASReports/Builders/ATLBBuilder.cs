@@ -13,7 +13,6 @@ namespace CASReports.Builders
         #region Fields
 
         private readonly ATLB _currentATLB;
-        private readonly GlobalTermsProvider _termsProvider = GlobalTermsProvider.Terms;
         private int _currentPageNumber;
         private readonly string _ATASpec = "ATA SPEC 5 6 7 8 9 10 11 12 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 38 49 51 52 52 54 55 56 57 71 72 73 74 75 76 77 78 79 80";
         //private List<MaintenanceCheckJobCard> MaintenanceSubChecks;
@@ -119,8 +118,8 @@ namespace CASReports.Builders
             var currentOperator = GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == aircraft.OperatorId);
             var operatorLogotype = currentOperator.LogoTypeWhite;
             var operatorAddress = currentOperator.Address;
-            var revision = _termsProvider["Revision"].ToString();
-            var caaRequirements = _termsProvider["CAARequirements"].ToString();
+            var revision = GlobalTermsProvider.Terms["Revision"].ToString();
+            var caaRequirements = GlobalTermsProvider.Terms["CAARequirements"].ToString();
             var pageNumber = (_currentPageNumber++).ToString().PadLeft(5, '0');//todo проверить
             var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
             var reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
@@ -149,7 +148,7 @@ namespace CASReports.Builders
             var qualityControl = specialistQualityControl == null ? "" : specialistQualityControl.FirstName;
             var qualityControlId = specialistQualityControl == null ? "" : specialistQualityControl.IdNo;
             var aircraftFlightNo = aircraftFlight.FlightNumber.ToString();
-            var aircraftFlightDate = aircraftFlight.FlightDate.ToString(_termsProvider["DateFormat"].ToString());
+            var aircraftFlightDate = aircraftFlight.FlightDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 			var stationFrom = aircraftFlight.StationFromId.ShortName;
 			var stationTo = aircraftFlight.StationToId.ShortName;
 			var airborneTimeOut = aircraftFlight.TimespanOutTime.ToString();// UsefulMethods.TimeToString(aircraftFlight.OutTime);
@@ -187,7 +186,7 @@ namespace CASReports.Builders
                 MaintenanceCheckRecord aCheckLastPerformance = GetLastPerformanceForCheckType(1);
                 if (aCheckLastPerformance != null)
                 {
-                    aCheckLastExecutionD = aCheckLastPerformance.RecordDate.ToString(_termsProvider["DateFormat"].ToString());
+                    aCheckLastExecutionD = aCheckLastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 //    aCheckLastExecutionH = Math.Round(aCheckLastPerformance.Lifelength.Hours.TotalHours).ToString();
                 }
                 //aCheckNextDueD = aircraft.ManufactureDate.AddTicks(aCheckLimitation.Next.Calendar.Ticks).ToString(termsProvider["DateFormat"].ToString());
@@ -203,7 +202,7 @@ namespace CASReports.Builders
                 MaintenanceCheckRecord bCheckLastPerformance = GetLastPerformanceForCheckType(2);
                 if (bCheckLastPerformance != null)
                 {
-                    bCheckLastExecutionD = bCheckLastPerformance.RecordDate.ToString(_termsProvider["DateFormat"].ToString());
+                    bCheckLastExecutionD = bCheckLastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 //    bCheckLastExecutionH = Math.Round(bCheckLastPerformance.Lifelength.Hours.TotalHours).ToString();
                 }
                 //bCheckNextDueD = aircraft.ManufactureDate.AddTicks(bCheckLimitation.Next.Calendar.Ticks).ToString(termsProvider["DateFormat"].ToString());
@@ -219,7 +218,7 @@ namespace CASReports.Builders
                 MaintenanceCheckRecord cCheckLastPerformance = GetLastPerformanceForCheckType(3);
                 if (cCheckLastPerformance != null)
                 {
-                    cCheckLastExecutionD = cCheckLastPerformance.RecordDate.ToString(_termsProvider["DateFormat"].ToString());
+                    cCheckLastExecutionD = cCheckLastPerformance.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 //    cCheckLastExecutionH = Math.Round(cCheckLastPerformance.Lifelength.Hours.TotalHours).ToString();
                 }
                 //cCheckNextDueD = aircraft.ManufactureDate.AddTicks(cCheckLimitation.Next.Calendar.Ticks).ToString(termsProvider["DateFormat"].ToString());
@@ -421,7 +420,7 @@ namespace CASReports.Builders
             if (aircraftFlight.CertificateOfReleaseToService != null)
             {
                 releaseToServiceCheckPerformed = aircraftFlight.CertificateOfReleaseToService.CheckPerformed;
-                releaseToServiceDate = aircraftFlight.CertificateOfReleaseToService.RecordDate.ToString(_termsProvider["DateFormat"].ToString());
+                releaseToServiceDate = aircraftFlight.CertificateOfReleaseToService.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 if(aircraftFlight.CertificateOfReleaseToService.AuthorizationB1 != null)
                     releaseToServiceAuth = aircraftFlight.CertificateOfReleaseToService.AuthorizationB1.ToString();
                 if (aircraftFlight.CertificateOfReleaseToService.AuthorizationB2 != null)
@@ -538,13 +537,13 @@ namespace CASReports.Builders
 			var currentOperator = GlobalObjects.CasEnvironment.Operators.First(o => o.ItemId == aircraft.OperatorId);
 			var operatorLogotype = currentOperator.LogoTypeWhite;
 			var operatorAddress = currentOperator.Address;
-			var revision = _termsProvider["Revision"].ToString();
-			var _CAARequirements = _termsProvider["CAARequirements"].ToString();
+			var revision = GlobalTermsProvider.Terms["Revision"].ToString();
+			var _CAARequirements = GlobalTermsProvider.Terms["CAARequirements"].ToString();
 			var pageNumber = (_currentPageNumber++).ToString().PadLeft(5, '0');
 			var reportFooterPrepared = GlobalTermsProvider.Terms["ReportFooterPrepared"].ToString();
 			var reportFooterLink = GlobalTermsProvider.Terms["ReportFooterLink"].ToString();
 			var aircraftFlightNo = aircraftFlight.FlightNumber.ToString();
-			var aircraftFlightDate = aircraftFlight.FlightDate.ToString(_termsProvider["DateFormat"].ToString());
+			var aircraftFlightDate = aircraftFlight.FlightDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
 			var aircraftModel = aircraft.Model.ToString();
 			var aircraftRegistrationNumber = aircraft.RegistrationNumber;
 			var discrepancy1 = "";
@@ -651,7 +650,7 @@ namespace CASReports.Builders
             if (discrepancy.CertificateOfReleaseToService != null)
             {
                 sta = discrepancy.CertificateOfReleaseToService.Station;
-                date = discrepancy.CertificateOfReleaseToService.RecordDate.ToString(_termsProvider["DateFormat"].ToString());
+                date = discrepancy.CertificateOfReleaseToService.RecordDate.ToString(GlobalTermsProvider.Terms["DateFormat"].ToString());
                 if (discrepancy.CertificateOfReleaseToService.AuthorizationB1 != null)
                     autorizationNo = discrepancy.CertificateOfReleaseToService.AuthorizationB1.ToString();
             
