@@ -881,6 +881,7 @@
     <Compile Include="Models\Enums.cs" />
     <Compile Include="Models\Lifelength.cs" />
     <Compile Include="Models\Operator.cs" />
+    <Compile Include="Models\Supplier.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportTemplates\AircraftGeneralDataReport.cs">
       <AutoGen>True</AutoGen>
