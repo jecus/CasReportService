@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace CasReportService.Helpers
+namespace Vendors.Helpers
 {
 	public class ApiResult<TView> : ApiResult
 	{

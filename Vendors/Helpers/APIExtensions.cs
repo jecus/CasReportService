@@ -3,7 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace CasReportService.Helpers
+namespace Vendors.Helpers
 {
 	public static class APIExtensions
 	{
