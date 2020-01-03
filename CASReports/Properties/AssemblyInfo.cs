@@ -7,9 +7,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("CASReports")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany(AssemblySettings.CompanyName)]
-[assembly: AssemblyProduct(AssemblySettings.ProductShortName)]
-[assembly: AssemblyCopyright(AssemblySettings.CopyrightShort)]
+//[assembly: AssemblyCompany(AssemblySettings.CompanyName)]
+//[assembly: AssemblyProduct(AssemblySettings.ProductShortName)]
+//[assembly: AssemblyCopyright(AssemblySettings.CopyrightShort)]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

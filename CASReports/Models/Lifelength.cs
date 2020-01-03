@@ -224,6 +224,18 @@ namespace CASReports.Models
         /*
          * Методы
          */
+        #region public void Resemble(Lifelength sample)
+        /// <summary>
+        /// Сделать похожим на заданный ресурс. Т.е. если не заданы часы - сделать часы n/a и т.д.
+        /// </summary>
+        /// <param name="sample"></param>
+        public void Resemble(Lifelength sample)
+        {
+	        if (sample.TotalMinutes == null) TotalMinutes = null;
+	        if (sample.Cycles == null) Cycles = null;
+	        if (sample.Days == null) Days = null;
+        }
+        #endregion
 
         /*
          * Арифметика 
