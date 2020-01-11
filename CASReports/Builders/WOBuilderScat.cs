@@ -1,26 +1,26 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
 using CASReports.Helpers;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
 {
-    /// <summary>
-    /// Построитель отчета Release To Service 
-    /// </summary>
-    public class WOBuilderScat : AbstractReportBuilder
+	/// <summary>
+	/// Построитель отчета Release To Service 
+	/// </summary>
+	public class WOBuilderScat : AbstractReportBuilder
 	{
 
-        #region Fields
+		#region Fields
 
-        private WorkPackage _currentWorkPackage;
-        private readonly int _count;
-        private readonly List<string[]> _summarySheetItems;
+		private WorkPackage _currentWorkPackage;
+		private readonly int _count;
+		private readonly List<string[]> _summarySheetItems;
 
-        private readonly bool _isScatReport;
+		private readonly bool _isScatReport;
 
 		#endregion
 
@@ -31,31 +31,31 @@ namespace CASReports.Builders
 		/// Возвращает рабочий пакет
 		/// </summary>
 		public WorkPackage WorkPackage
-        {
-            set { _currentWorkPackage = value; }
-        }
+		{
+			set { _currentWorkPackage = value; }
+		}
 
 		public ICommonCollection<BaseEntityObject> Items { get; set; }
 
 		#endregion
 
-        #endregion
+		#endregion
 
-        #region Constructor
+		#region Constructor
 
-        /// <summary>
-        /// Создается построитель отчета Release To Service 
-        /// </summary>
-        /// <param name="workPackage">Рабочий пакет</param>
-        /// <param name="count"></param>
-        /// <param name="summarySheetItems"></param>
-        /// <param name="items"></param>
-        public WOBuilderScat(WorkPackage workPackage, int count, List<string[]> summarySheetItems)
-        {
-	        _currentWorkPackage = workPackage;
-	        _count = count;
-	        _summarySheetItems = summarySheetItems;
-        }
+		/// <summary>
+		/// Создается построитель отчета Release To Service 
+		/// </summary>
+		/// <param name="workPackage">Рабочий пакет</param>
+		/// <param name="count"></param>
+		/// <param name="summarySheetItems"></param>
+		/// <param name="items"></param>
+		public WOBuilderScat(WorkPackage workPackage, int count, List<string[]> summarySheetItems)
+		{
+			_currentWorkPackage = workPackage;
+			_count = count;
+			_summarySheetItems = summarySheetItems;
+		}
 
 		#endregion
 

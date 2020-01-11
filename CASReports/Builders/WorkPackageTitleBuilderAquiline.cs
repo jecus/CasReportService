@@ -1,22 +1,22 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using CASReports.Datasets;
 using CASReports.Helpers;
+using CASReports.Models;
 using CASReports.ReportTemplates;
 
 namespace CASReports.Builders
 {
-    /// <summary>
-    /// Построитель отчета Release To Service 
-    /// </summary>
-    public class WorkPackageTitleBuilderAquiline
+	/// <summary>
+	/// Построитель отчета Release To Service 
+	/// </summary>
+	public class WorkPackageTitleBuilderAquiline
 	{
 
-        #region Fields
+		#region Fields
 
-        private WorkPackage _currentWorkPackage;
+		private WorkPackage _currentWorkPackage;
 		/// <summary>
 		/// Директивы включаемые в отчет
 		/// </summary>
@@ -33,26 +33,26 @@ namespace CASReports.Builders
 		/// Возвращает рабочий пакет
 		/// </summary>
 		public WorkPackage WorkPackage
-        {
-            set { _currentWorkPackage = value; }
-        }
+		{
+			set { _currentWorkPackage = value; }
+		}
 
-        #endregion
+		#endregion
 
-        #endregion
+		#endregion
 
-        #region Constructor
-        /// <summary>
-        /// Создается построитель отчета Release To Service 
-        /// </summary>
-        /// <param name="workPackage">Рабочий пакет</param>
-        /// <param name="items"></param>
-        public WorkPackageTitleBuilderAquiline(WorkPackage workPackage, List<KeyValuePair<string, int>> items, bool IsScatReport = false)
-        {
-            _currentWorkPackage = workPackage;
-            _items = items;
-	        _isScatReport = IsScatReport;
-        }
+		#region Constructor
+		/// <summary>
+		/// Создается построитель отчета Release To Service 
+		/// </summary>
+		/// <param name="workPackage">Рабочий пакет</param>
+		/// <param name="items"></param>
+		public WorkPackageTitleBuilderAquiline(WorkPackage workPackage, List<KeyValuePair<string, int>> items, bool IsScatReport = false)
+		{
+			_currentWorkPackage = workPackage;
+			_items = items;
+			_isScatReport = IsScatReport;
+		}
 
 		#endregion
 

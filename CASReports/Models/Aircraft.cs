@@ -29,5 +29,9 @@ namespace CASReports.Models
 		public string Oven { get; set; }
 		public string Boiler { get; set; }
 		public string AirStairsDoors { get; set; }
+		public AircraftModel Model { get; set; }
+		public bool MaintenanceProgramCheckNaming { get; set; }
+		public int AircraftFrameId { get; set; }
+		public int OperatorId { get; set; }
 	}
 }

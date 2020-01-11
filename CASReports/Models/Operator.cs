@@ -21,6 +21,8 @@
 
 		public string Fax { get; set; }
 
+		public string Email { get; set; }
+
 		public byte[] LogoType
 		{
 			get => _logoType ?? (_logoType = new byte[0]);
